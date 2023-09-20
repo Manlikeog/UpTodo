@@ -63,7 +63,7 @@ class _StartScreenState extends State<StartScreen> {
             UpToDoMainButton(
                 text: "LOGIN",
                 onTap: () {
-                  RouteNavigators.route(context, Signon());
+                  RouteNavigators.route(context, const Signon());
                 },
                 cornerRadius: 6,
                 height: 50,
@@ -73,7 +73,7 @@ class _StartScreenState extends State<StartScreen> {
             UpToDoMainButton(
                 text: "CREATE ACCOUNT",
                 onTap: () {
-                  RouteNavigators.route(context, Signon());
+                  RouteNavigators.route(context, const Signon());
                 },
                 cornerRadius: 6,
                 height: 50,
