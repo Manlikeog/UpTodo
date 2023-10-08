@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uptodo/routes/routes.navigation.dart';
 import 'package:uptodo/screens/auth/sign.on.dart';
+import 'package:uptodo/screens/auth/sign.up.dart';
 import 'package:uptodo/utils/colours.dart';
 import 'package:uptodo/utils/constants.dart';
 import 'package:uptodo/utils/dimensions.dart';
@@ -73,7 +74,7 @@ class _StartScreenState extends State<StartScreen> {
             UpToDoMainButton(
                 text: "CREATE ACCOUNT",
                 onTap: () {
-                  RouteNavigators.route(context, const Signon());
+                  RouteNavigators.route(context, const SignUp());
                 },
                 cornerRadius: 6,
                 height: 50,

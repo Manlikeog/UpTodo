@@ -27,10 +27,11 @@ class UpToDoTextButton extends StatelessWidget {
       onTap: onTap,
       child: Text(
         title,
-        style: kTextStyleReguler(
+        style: kTextStyleCustom(
           color: color,
           fontSize: fontSize,
           fontStyle: fontStyle,
+          fontWeight: fontWeight
         ),
       ),
     );

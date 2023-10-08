@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 const DIVIDERCOLOR = Color(0xFF979797);
 const PRYCOLOR = Color(0xFF8887E7);
-const FADEDCOLOR = Color(0x7E8687E7);
+const FADEDCOLOR = Color(0x7C8687E7);
 const BUTTONCOLOR = Color(0xFF8875FF);
+const FADEDBUTTONCOLOR = Color(0xFF8687E7);
 const BUTTONBACKGROUNDCOLOR = Color(0xFF8E7CFF);
 const BACKGROUNDCOLOR = Color(0xFF121212);
 const TEXTCOLOR = Color(0xffFFFFFF);

@@ -85,8 +85,10 @@ class _EpawooTextFieldState extends State<UpTodoTextField> {
           keyboardType: widget.keyboardType,
           maxLines: widget.maxLines,
           obscureText: widget.obscureText,
+          obscuringCharacter: '•',
           onEditingComplete: widget.onEditingComplete,
           onChanged: widget.onChange,
+          style: kTextStyleReguler(fontSize: 16, color: Colors.white),
           decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(
                 vertical: 0,

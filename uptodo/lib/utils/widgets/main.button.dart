@@ -10,6 +10,7 @@ class UpToDoMainButton extends StatefulWidget {
     this.backgroundColor = BUTTONCOLOR,
     this.cornerRadius = 16,
     this.borderColor = BUTTONBACKGROUNDCOLOR,
+    this.borderHeight = 1.8,
     this.child,
     this.height = 30,
     this.elevation = 3,
@@ -25,6 +26,7 @@ class UpToDoMainButton extends StatefulWidget {
   final Color backgroundColor;
   final double cornerRadius;
   final Color borderColor;
+  final double borderHeight;
   final bool onboarding;
   final double height;
   final double elevation;
@@ -44,7 +46,7 @@ class _UpToDoMainButtonState extends State<UpToDoMainButton> {
         decoration: BoxDecoration(
             color: widget.backgroundColor,
             border: Border.all(
-                color: widget.borderColor, width: getScreenWidth(1.8)),
+                color: widget.borderColor, width: getScreenWidth(widget.borderHeight)),
             borderRadius:
                 BorderRadius.circular(getScreenHeight(widget.cornerRadius))),
         height: getScreenHeight(widget.height),

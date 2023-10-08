@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:uptodo/routes/routes.navigation.dart';
-import 'package:uptodo/screens/auth/sign.up.dart';
+import 'package:uptodo/screens/auth/sign.on.dart';
 import 'package:uptodo/screens/onboarding/start.screen.dart';
 import 'package:uptodo/utils/colours.dart';
 import 'package:uptodo/utils/constants.dart';
@@ -10,29 +10,19 @@ import 'package:uptodo/utils/widgets/main.button.dart';
 import 'package:uptodo/utils/widgets/text.button.dart';
 import 'package:uptodo/utils/widgets/text.field.dart';
 
-class Signon extends StatefulHookWidget {
-  const Signon({super.key});
+class SignUp extends StatefulHookWidget {
+  const SignUp({super.key});
 
   @override
-  State<Signon> createState() => _SignonState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _SignonState extends State<Signon> {
-  @override
-  void initState() {
-
-    super.initState();
-        showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Column();
-        });
-  }
-
+class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     var usernameController = useTextEditingController();
     var passwordController = useTextEditingController();
+    var confirmPasswordController = useTextEditingController();
     var backgroundColor = useState(FADEDCOLOR);
     var borderColor = useState(Colors.transparent);
     var textColor = useState(LIGHTERTEXTCOLOR);
@@ -54,19 +44,21 @@ class _SignonState extends State<Signon> {
                   color: TEXTCOLOR,
                 ),
               ),
-              yMargin(40),
+              yMargin(15),
               Text(
-                'Login',
+                'Register',
                 style: kTextStyleBold(fontSize: 30, color: LIGHTTEXTCOLOR),
               ),
-              yMargin(30),
+              yMargin(15),
               UpTodoTextField(
                 visible: true,
                 header: "Username",
                 controller: usernameController,
                 hintText: "Enter your Username",
                 onChange: (val) {
-                  if (val.isNotEmpty && passwordController.text.isNotEmpty) {
+                  if (val.isNotEmpty &&
+                      passwordController.text.isNotEmpty &&
+                      confirmPasswordController.text.isNotEmpty) {
                     borderColor.value = FADEDBUTTONCOLOR;
                     backgroundColor.value = FADEDBUTTONCOLOR;
                     textColor.value = TEXTCOLOR;
@@ -77,7 +69,7 @@ class _SignonState extends State<Signon> {
                   }
                 },
               ),
-              yMargin(25),
+              yMargin(15),
               UpTodoTextField(
                 visible: true,
                 header: "Password",
@@ -85,7 +77,9 @@ class _SignonState extends State<Signon> {
                 hintText: "••••••••••••",
                 obscureText: true,
                 onChange: (val) {
-                  if (val.isNotEmpty && usernameController.text.isNotEmpty) {
+                  if (val.isNotEmpty &&
+                      usernameController.text.isNotEmpty &&
+                      confirmPasswordController.text.isNotEmpty) {
                     borderColor.value = FADEDBUTTONCOLOR;
                     backgroundColor.value = FADEDBUTTONCOLOR;
                     textColor.value = TEXTCOLOR;
@@ -96,10 +90,33 @@ class _SignonState extends State<Signon> {
                   }
                 },
               ),
-              yMargin(69),
+              yMargin(15),
+              UpTodoTextField(
+                visible: true,
+                header: "Confirm Password",
+                controller: confirmPasswordController,
+                hintText: "••••••••••••",
+                obscureText: true,
+                onChange: (val) {
+                  if (val.isNotEmpty &&
+                      usernameController.text.isNotEmpty &&
+                      confirmPasswordController.text.isNotEmpty) {
+                    borderColor.value = FADEDBUTTONCOLOR;
+                    backgroundColor.value = FADEDBUTTONCOLOR;
+                    textColor.value = TEXTCOLOR;
+                  } else {
+                    borderColor.value = Colors.transparent;
+                    backgroundColor.value = FADEDCOLOR;
+                    textColor.value = LIGHTERTEXTCOLOR;
+                  }
+                },
+              ),
+              yMargin(39),
               UpToDoMainButton(
-                text: "Login",
-                onTap: () {},
+                text: "Register",
+                onTap: () {
+                  RouteNavigators.route(context, const Signon());
+                },
                 cornerRadius: 6,
                 height: 50,
                 backgroundColor: backgroundColor.value,
@@ -137,7 +154,9 @@ class _SignonState extends State<Signon> {
               yMargin(24),
               UpToDoMainButton(
                 text: "Login with Google",
-                onTap: () {},
+                onTap: () {
+                  RouteNavigators.route(context, const Signon());
+                },
                 cornerRadius: 6,
                 height: 50,
                 borderHeight: 1,
@@ -151,7 +170,7 @@ class _SignonState extends State<Signon> {
                     Image.asset('assets/images/google.png'),
                     xMargin(10),
                     Text(
-                      "Login with Google",
+                      "Register with Google",
                       style: kTextStyleReguler(color: TEXTCOLOR),
                     ),
                   ],
@@ -159,8 +178,10 @@ class _SignonState extends State<Signon> {
               ),
               yMargin(20),
               UpToDoMainButton(
-                text: "Login with Apple",
-                onTap: () {},
+                text: "Register with Apple",
+                onTap: () {
+                  RouteNavigators.route(context, const Signon());
+                },
                 cornerRadius: 6,
                 height: 50,
                 borderHeight: 1,
@@ -174,7 +195,7 @@ class _SignonState extends State<Signon> {
                     Image.asset('assets/images/apple.png'),
                     xMargin(10),
                     Text(
-                      "Login with Apple",
+                      "Register with Apple",
                       style: kTextStyleReguler(color: TEXTCOLOR),
                     ),
                   ],
@@ -185,15 +206,15 @@ class _SignonState extends State<Signon> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Don\'t have an account?',
+                    'Already have an account?',
                     style: kTextStyleReguler(color: DIVIDERCOLOR),
                   ),
                   xMargin(4),
                   UpToDoTextButton(
                     onTap: () {
-                      RouteNavigators.route(context, const SignUp());
+                      RouteNavigators.route(context, const Signon());
                     },
-                    title: "Register",
+                    title: "Login",
                     color: LIGHTTEXTCOLOR,
                     fontSize: getScreenHeight(16),
                     fontWeight: FontWeight.w400,
