@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:uptodo/routes/routes.navigation.dart';
 import 'package:uptodo/screens/auth/sign.up.dart';
+import 'package:uptodo/screens/home/home_nav_bar.dart';
 import 'package:uptodo/screens/onboarding/start.screen.dart';
 import 'package:uptodo/utils/colours.dart';
 import 'package:uptodo/utils/constants.dart';
@@ -20,13 +21,7 @@ class Signon extends StatefulHookWidget {
 class _SignonState extends State<Signon> {
   @override
   void initState() {
-
     super.initState();
-        showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Column();
-        });
   }
 
   @override
@@ -99,7 +94,9 @@ class _SignonState extends State<Signon> {
               yMargin(69),
               UpToDoMainButton(
                 text: "Login",
-                onTap: () {},
+                onTap: () {
+                  RouteNavigators.route(context, const HomeNavBar());
+                },
                 cornerRadius: 6,
                 height: 50,
                 backgroundColor: backgroundColor.value,

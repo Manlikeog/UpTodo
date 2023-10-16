@@ -19,6 +19,10 @@ class UpTodoTextField extends StatefulWidget {
     this.obscureText = false,
     this.validateMode = AutovalidateMode.onUserInteraction,
     this.header = "",
+    this.textFieldColor = TEXTFIELDBORDERCOLOR,
+    this.focusedBorderColor = DIVIDERCOLOR,
+    this.hintColor = TEXTFIELDHINTCOLOR,
+    this.borderColor = DIVIDERCOLOR,
     this.borderRadius = 5,
     this.maxLines = 1,
     this.onEditingComplete,
@@ -45,7 +49,10 @@ class UpTodoTextField extends StatefulWidget {
   final Function(String)? onChange;
   final Widget? icon;
   final Widget? prefixIcon;
-
+  final Color textFieldColor;
+  final Color focusedBorderColor;
+  final Color borderColor;
+  final Color hintColor;
   @override
   State<UpTodoTextField> createState() => _EpawooTextFieldState();
 }
@@ -58,7 +65,7 @@ class _EpawooTextFieldState extends State<UpTodoTextField> {
       borderSide: BorderSide(
           width: getScreenHeight(1),
           style: BorderStyle.solid,
-          color: DIVIDERCOLOR),
+          color: widget.focusedBorderColor),
     );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +95,7 @@ class _EpawooTextFieldState extends State<UpTodoTextField> {
           obscuringCharacter: '•',
           onEditingComplete: widget.onEditingComplete,
           onChanged: widget.onChange,
-          style: kTextStyleReguler(fontSize: 16, color: Colors.white),
+          style: kTextStyleCustom(fontSize: 16, color: Colors.white),
           decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(
                 vertical: 0,
@@ -96,11 +103,25 @@ class _EpawooTextFieldState extends State<UpTodoTextField> {
               ),
               hintText: ' ${widget.hintText}',
               filled: true,
-              fillColor: TEXTFIELDBORDERCOLOR,
+              fillColor: widget.textFieldColor,
               hintStyle:
-                  kTextStyleReguler(fontSize: 16, color: TEXTFIELDHINTCOLOR),
-              enabledBorder: outlineInputBorder,
-              border: outlineInputBorder,
+                  kTextStyleCustom(fontSize: 16, color: widget.hintColor),
+              enabledBorder: OutlineInputBorder(
+                borderRadius:
+                    BorderRadius.circular(getScreenHeight(widget.borderRadius)),
+                borderSide: BorderSide(
+                    width: getScreenHeight(1),
+                    style: BorderStyle.solid,
+                    color: widget.borderColor),
+              ),
+              border: OutlineInputBorder(
+                borderRadius:
+                    BorderRadius.circular(getScreenHeight(widget.borderRadius)),
+                borderSide: BorderSide(
+                    width: getScreenHeight(1),
+                    style: BorderStyle.solid,
+                    color: widget.borderColor),
+              ),
               disabledBorder: outlineInputBorder,
               errorBorder: OutlineInputBorder(
                 borderRadius:
