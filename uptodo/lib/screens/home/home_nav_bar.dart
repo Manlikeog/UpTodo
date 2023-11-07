@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:uptodo/screens/home/add_task/add_task.dart';
-import 'package:uptodo/screens/home/calendar.dart';
-import 'package:uptodo/screens/home/focuse.dart';
-import 'package:uptodo/screens/home/home_screen.dart';
-import 'package:uptodo/screens/home/profile.dart';
+import 'package:uptodo/screens/home/calendar/calendar.dart';
+import 'package:uptodo/screens/home/focus/focuse.dart';
+import 'package:uptodo/screens/home/home/home_screen.dart';
+import 'package:uptodo/screens/home/profile/profile.dart';
 import 'package:uptodo/utils/colours.dart';
 import 'package:uptodo/utils/constants.dart';
 import 'package:uptodo/utils/dimensions.dart';
