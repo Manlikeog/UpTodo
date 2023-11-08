@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uptodo/utils/colours.dart';
+import 'package:uptodo/utils/config.dart';
 import 'package:uptodo/utils/constants.dart';
 import 'package:uptodo/utils/dimensions.dart';
 import 'package:uptodo/utils/widgets/main.button.dart';
@@ -53,16 +54,6 @@ class TodayTaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    determineColorType(String categoryType) {
-      if (categoryType == 'University') {
-        return 0xFF8887E7;
-      } else if (categoryType == 'Home') {
-        return 0xFFFF7F7F;
-      } else {
-        return 0xFFFFCC7F;
-      }
-    }
-
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10), color: BOTTOMNAVCOLOR),
@@ -240,3 +231,4 @@ class CategoryType extends StatelessWidget {
     );
   }
 }
+

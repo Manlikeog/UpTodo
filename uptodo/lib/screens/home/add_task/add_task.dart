@@ -2,8 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:uptodo/routes/routes.navigation.dart';
 import 'package:uptodo/screens/home/add_task/item_model.dart';
+import 'package:uptodo/screens/home/add_task/new_category.dart';
 import 'package:uptodo/utils/colours.dart';
+import 'package:uptodo/utils/config.dart';
 import 'package:uptodo/utils/constants.dart';
 import 'package:uptodo/utils/dimensions.dart';
 import 'package:uptodo/utils/widgets/main.button.dart';
@@ -91,10 +94,22 @@ class _AddTaskButtonState extends State<AddTaskButton> {
                             ),
                           ),
                           xMargin(15),
-                          Image.asset(
-                            'assets/images/tag.png',
-                            height: getScreenHeight(30),
-                            fit: BoxFit.fill,
+                          GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return StatefulBuilder(
+                                        builder: (context, setstate) {
+                                      return categoryPriority(setstate);
+                                    });
+                                  });
+                            },
+                            child: Image.asset(
+                              'assets/images/tag.png',
+                              height: getScreenHeight(30),
+                              fit: BoxFit.fill,
+                            ),
                           ),
                           xMargin(15),
                           GestureDetector(
@@ -153,7 +168,7 @@ class _AddTaskButtonState extends State<AddTaskButton> {
             children: <Widget>[
               yMargin(10),
               Text('Task Priority', style: kTextStyleSemiBold()),
-            const  Divider(),
+              const Divider(),
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -204,6 +219,51 @@ class _AddTaskButtonState extends State<AddTaskButton> {
       ),
     );
   }
+}
+
+Dialog categoryPriority(StateSetter setstate) {
+  return Dialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(6.0)), //this right here
+    backgroundColor: BOTTOMNAVCOLOR,
+    child: SizedBox(
+      height: getScreenHeight(450),
+      child: Column(
+        children: <Widget>[
+          yMargin(10),
+          Text('Choose Category', style: kTextStyleCustom(fontSize: 13)),
+          const Divider(
+            color: DIVIDERCOLOR,
+          ),
+          Expanded(
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3, // Number of columns
+                  childAspectRatio: 1 // Aspect ratio of items (square)
+                  ),
+              itemCount: categories.length,
+              padding: EdgeInsets.zero,
+              itemBuilder: (context, index) {
+                final dataToUse = categories[index];
+                return CategoryItem(
+                  item: dataToUse,
+                  color: Color(determineColorType(dataToUse.text)),
+                  onTap: () {
+                    if (dataToUse.text == 'Create New') {
+                      RouteNavigators.route(context, NewCategory());
+                    } else {
+                      RouteNavigators.pop(context);
+                    }
+                  },
+                );
+              },
+            ),
+          ),
+          yMargin(20)
+        ],
+      ),
+    ),
+  );
 }
 
 Future<DateTime?> showDateTimePicker({
