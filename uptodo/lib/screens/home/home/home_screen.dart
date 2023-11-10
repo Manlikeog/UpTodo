@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:uptodo/routes/routes.navigation.dart';
-import 'package:uptodo/screens/home/add_task/edit_task.dart';
+import 'package:uptodo/screens/home/home/resources/edit_task.dart';
 import 'package:uptodo/screens/home/home/resources/task_model.dart';
 import 'package:uptodo/utils/colours.dart';
 import 'package:uptodo/utils/constants.dart';
@@ -9,8 +9,8 @@ import 'package:uptodo/utils/dimensions.dart';
 import 'package:uptodo/utils/widgets/text.field.dart';
 
 class HomeScreen extends StatefulHookWidget {
-  const HomeScreen({super.key});
-
+  const HomeScreen({super.key, required this.availableTasks});
+  final ValueNotifier<List<TodayTaskModel>> availableTasks;
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -19,13 +19,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var titleController = useTextEditingController();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: getScreenWidth(20)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               yMargin(74),
               Row(
@@ -42,8 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               yMargin(30),
-              dummyCurrentTodayData.isNotEmpty
-                  ? AvailableTask(titleController: titleController)
+              widget.availableTasks.value.isNotEmpty
+                  ? AvailableTask(
+                      titleController: titleController,
+                      availableTasks: widget.availableTasks,
+                    )
                   : Column(
                       children: [
                         yMargin(50),
@@ -72,14 +76,18 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class AvailableTask extends StatelessWidget {
-  const AvailableTask({
-    super.key,
-    required this.titleController,
-  });
+class AvailableTask extends StatefulHookWidget {
+  const AvailableTask(
+      {super.key, required this.titleController, required this.availableTasks});
 
   final TextEditingController titleController;
+  final ValueNotifier<List<TodayTaskModel>> availableTasks;
 
+  @override
+  State<AvailableTask> createState() => _AvailableTaskState();
+}
+
+class _AvailableTaskState extends State<AvailableTask> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -88,7 +96,7 @@ class AvailableTask extends StatelessWidget {
       children: [
         UpTodoTextField(
           header: "Ud",
-          controller: titleController,
+          controller: widget.titleController,
           hintText: "Search for your Task...",
           hintColor: NAVCOLOR,
           onChange: (val) {},
@@ -124,16 +132,24 @@ class AvailableTask extends StatelessWidget {
           height: getScreenHeight(270),
           child: ListView.builder(
             padding: EdgeInsets.zero,
-            itemCount: dummyCurrentTodayData.length,
+            itemCount: widget.availableTasks.value.length,
             itemBuilder: (context, index) {
-              final dataToUse = dummyCurrentTodayData[index];
+              final dataToUse = widget.availableTasks.value[index];
               return TodayTaskItem(
                 categoryTitle: dataToUse.categoryTitle,
                 date: dataToUse.date,
                 priorityType: dataToUse.priorityType,
                 title: dataToUse.title,
                 ontap: () {
-                  RouteNavigators.route(context, const EditTask());
+                  RouteNavigators.route(
+                      context,
+                      EditTask(
+                        title: dataToUse.title,
+                        taskPriority: dataToUse.priorityType,
+                        categoryTitle: dataToUse.categoryTitle,
+                        date: dataToUse.date,
+                        subtitle: dataToUse.subtitle,
+                      ));
                 },
               );
             },
@@ -171,7 +187,7 @@ class AvailableTask extends StatelessWidget {
             padding: EdgeInsets.zero,
             itemCount: 1,
             itemBuilder: (context, index) {
-              final dataToUse = dummyCurrentTodayData[index];
+              final dataToUse = widget.availableTasks.value[index];
               return CompletedTaskItem(
                   date: dataToUse.date, title: dataToUse.title);
             },

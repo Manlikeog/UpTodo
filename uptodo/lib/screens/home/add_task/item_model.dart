@@ -39,13 +39,12 @@ class GridItem extends StatelessWidget {
               'assets/images/flag.png',
               height: getScreenHeight(24),
               fit: BoxFit.fill,
+              color: TEXTCOLOR,
             ),
             yMargin(3),
             Text(
               item.text,
-              style: kTextStyleSemiBold(
-                color: LIGHTCOLOR,
-              ),
+              style: kTextStyleCustom(color: TEXTCOLOR),
             ),
           ],
         ),
@@ -96,22 +95,22 @@ class CategoryItem extends StatelessWidget {
 }
 
 List<CategoryModel> categories = [
-  CategoryModel('grocery', 'Grocery'),
-  CategoryModel('work', 'Work'),
-  CategoryModel('sport', 'Sport'),
-  CategoryModel('design', 'Design'),
-  CategoryModel('univeristy', 'University'),
-  CategoryModel('social', 'Social'),
-  CategoryModel('music', 'Music'),
-  CategoryModel('health', 'Health'),
-  CategoryModel('movie', 'Movie'),
-  CategoryModel('house', 'Home'),
-  CategoryModel('add_new', 'Create New'),
+  CategoryModel(icon:'grocery', text:'Grocery', color: 0xFFCCFF7F),
+  CategoryModel(icon:'work', text:'Work', color: 0xFFFF967F),
+  CategoryModel(icon:'sport', text:'Sport', color: 0xFF7FFFFF),
+  CategoryModel(icon:'design',text: 'Design', color: 0xFF7FFFD8),
+  CategoryModel(icon: 'univeristy', text:'University', color: 0xFF7F9BFF),
+  CategoryModel(icon:'social', text:'Social', color: 0xFFFF7FEA),
+  CategoryModel(icon: 'music', text:'Music', color: 0xFFFC7FFF),
+  CategoryModel(icon:'health', text: 'Health', color: 0xFF7FFFA3),
+  CategoryModel(icon: 'movie', text: 'Movie', color: 0xFF7FD1FF),
+  CategoryModel(icon: 'house', text: 'Home', color: 0xFFFFCC7F),
+  CategoryModel(icon: 'add_new', text: 'Create New', color: 0xFF7FFFD1),
 ];
 
 class CategoryModel {
   final String icon;
   final String text;
-
-  CategoryModel(this.icon, this.text);
+  final int? color;
+  CategoryModel({ required this.icon, required this.text, this.color});
 }

@@ -10,34 +10,19 @@ class TodayTaskModel {
   final String date;
   final String categoryTitle;
   final String priorityType;
+  final String catergoryIcon;
+  final String subtitle;
+  final int? categoryColor;
 
   TodayTaskModel(
       {required this.categoryTitle,
       required this.date,
       required this.priorityType,
-      required this.title});
+      required this.title,
+      required this.categoryColor,
+      required this.subtitle,
+      required this.catergoryIcon});
 }
-
-List<TodayTaskModel> dummyCurrentTodayData = [
-  TodayTaskModel(
-    categoryTitle: 'University',
-    date: 'Today At 16:45',
-    priorityType: '1',
-    title: 'Do Math Homework',
-  ),
-  TodayTaskModel(
-    categoryTitle: 'Home',
-    date: 'Today At 18:20',
-    priorityType: '1',
-    title: 'Tack out dogs',
-  ),
-  TodayTaskModel(
-    categoryTitle: 'Work',
-    date: 'Today At 08:15',
-    priorityType: '2',
-    title: 'Business with CEO',
-  ),
-];
 
 class TodayTaskItem extends StatelessWidget {
   final String title;
@@ -45,14 +30,13 @@ class TodayTaskItem extends StatelessWidget {
   final String categoryTitle;
   final String priorityType;
   final Function() ontap;
-  const TodayTaskItem({
-    super.key,
-    required this.categoryTitle,
-    required this.date,
-    required this.priorityType,
-    required this.title,
-    required this.ontap
-  });
+  const TodayTaskItem(
+      {super.key,
+      required this.categoryTitle,
+      required this.date,
+      required this.priorityType,
+      required this.title,
+      required this.ontap});
 
   @override
   Widget build(BuildContext context) {
@@ -99,14 +83,14 @@ class TodayTaskItem extends StatelessWidget {
                         Row(
                           children: [
                             CategoryType(
-                              icon: const Icon(
-                                Icons.work,
-                                color: LIGHTTEXTCOLOR,
-                                size: 15,
+                              icon: Image.asset(
+                                'assets/images/${determineColorType(categoryTitle).icon}.png',
+                                height: getScreenHeight(10),
                               ),
                               text: categoryTitle,
-                              categoryColor:
-                                  Color(determineColorType(categoryTitle)),
+                              categoryColor: Color(
+                                  determineColorType(categoryTitle).color ??
+                                      000000),
                             ),
                             xMargin(10),
                             UpToDoMainButton(
@@ -126,12 +110,15 @@ class TodayTaskItem extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Image.asset('assets/images/flag.png'),
+                                    Image.asset(
+                                      'assets/images/flag.png',
+                                      height: getScreenHeight(14),
+                                    ),
                                     xMargin(5),
                                     Text(
                                       priorityType,
-                                      style:
-                                          kTextStyleReguler(color: TEXTCOLOR),
+                                      style: kTextStyleReguler(
+                                          color: TEXTCOLOR, fontSize: 14),
                                     ),
                                   ],
                                 ),
@@ -227,9 +214,7 @@ class CategoryType extends StatelessWidget {
             xMargin(5),
             Text(
               text,
-              style: kTextStyleCustom(
-                fontSize: 12,
-              ),
+              style: kTextStyleCustom(fontSize: 12, color: Colors.black),
             ),
           ],
         ),

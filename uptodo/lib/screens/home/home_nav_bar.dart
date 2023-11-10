@@ -4,6 +4,7 @@ import 'package:uptodo/screens/home/add_task/add_task.dart';
 import 'package:uptodo/screens/home/calendar/calendar.dart';
 import 'package:uptodo/screens/home/focus/focuse.dart';
 import 'package:uptodo/screens/home/home/home_screen.dart';
+import 'package:uptodo/screens/home/home/resources/task_model.dart';
 import 'package:uptodo/screens/home/profile/profile.dart';
 import 'package:uptodo/utils/colours.dart';
 import 'package:uptodo/utils/constants.dart';
@@ -21,9 +22,11 @@ class _HomeNavBarState extends State<HomeNavBar> {
   @override
   Widget build(BuildContext context) {
     final currentIndex = useState(widget.currentScreen);
-
+    var availableTasks = useState<List<TodayTaskModel>>([]);
     final screensToShow = <Widget>[
-      const HomeScreen(),
+      HomeScreen(
+        availableTasks: availableTasks,
+      ),
       const Calendar(),
       const Focuse(),
       const Profile()
@@ -33,7 +36,7 @@ class _HomeNavBarState extends State<HomeNavBar> {
         height: double.maxFinite,
         child: screensToShow[currentIndex.value],
       ),
-      floatingActionButton: const AddTaskButton(),
+      floatingActionButton:  AddTaskButton(availableTasks: availableTasks,),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: HomeNavigationBar(
         currentIndex: currentIndex,
