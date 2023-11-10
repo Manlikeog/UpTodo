@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:uptodo/routes/routes.navigation.dart';
+import 'package:uptodo/screens/home/add_task/edit_task.dart';
 import 'package:uptodo/screens/home/home/resources/task_model.dart';
 import 'package:uptodo/utils/colours.dart';
 import 'package:uptodo/utils/constants.dart';
@@ -126,10 +128,14 @@ class AvailableTask extends StatelessWidget {
             itemBuilder: (context, index) {
               final dataToUse = dummyCurrentTodayData[index];
               return TodayTaskItem(
-                  categoryTitle: dataToUse.categoryTitle,
-                  date: dataToUse.date,
-                  priorityType: dataToUse.priorityType,
-                  title: dataToUse.title);
+                categoryTitle: dataToUse.categoryTitle,
+                date: dataToUse.date,
+                priorityType: dataToUse.priorityType,
+                title: dataToUse.title,
+                ontap: () {
+                  RouteNavigators.route(context, const EditTask());
+                },
+              );
             },
           ),
         ),

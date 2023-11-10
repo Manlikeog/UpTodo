@@ -90,7 +90,7 @@ class _AddTaskButtonState extends State<AddTaskButton> {
                             child: Icon(
                               Icons.timer_outlined,
                               size: getScreenHeight(30),
-                              color: LIGHTERTEXTCOLOR,
+                              color: LIGHTCOLOR,
                             ),
                           ),
                           xMargin(15),
@@ -250,7 +250,7 @@ Dialog categoryPriority(StateSetter setstate) {
                   color: Color(determineColorType(dataToUse.text)),
                   onTap: () {
                     if (dataToUse.text == 'Create New') {
-                      RouteNavigators.route(context, NewCategory());
+                      RouteNavigators.route(context, const NewCategory());
                     } else {
                       RouteNavigators.pop(context);
                     }
